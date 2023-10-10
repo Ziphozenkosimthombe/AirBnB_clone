@@ -6,7 +6,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs) -> None:
         """The constructor"""
 
-        if kwargs:
+        if kwargs is not None and len(kwargs) != 0:
             for key, val in kwargs.items():
                 if key == 'id':
                     self.id = val
