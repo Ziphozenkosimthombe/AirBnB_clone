@@ -52,5 +52,5 @@
 | 17. Unittests for the Console! | [SOON](./) |
 
 AUTHORS:
-karabo mahlare
+karabo mahlare and 
 Ziphozenkosi Ncayiyana
