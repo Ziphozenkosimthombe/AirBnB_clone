@@ -50,3 +50,7 @@
 | 15. Update | [SOON](./) |
 | 16. Update from dictionary | [SOON](./) |
 | 17. Unittests for the Console! | [SOON](./) |
+
+AUTHORS:
+karabo mahlare
+Ziphozenkosi Ncayiyana
