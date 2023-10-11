@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+from models.base_model import BaseModel
 import json as js
 import os
 
@@ -18,8 +20,9 @@ class FileStorage:
 
     def save(self) -> None:
         """: serializes __objects to the JSON file (path: __file_path)"""
-        with open(file='file.json', mode='w', encoding='utf-8') as js_file:
-            js.dump(FileStorage.__objects, js_file)
+        with open(file=FileStorage.__file_path, mode='w', encoding='utf-8') as js_file:
+            json_dict = {key: val.to_dict() for (key, val) in FileStorage.__objects.items()}
+            js.dump(json_dict, js_file)
 
     def reload(self) -> None:
         """
@@ -28,8 +31,10 @@ class FileStorage:
         no exception should be raised)
         """
         try:
-            with open(file='file.json', mode='r', encoding='utf-8') as js_file:
-                FileStorage.__objects = js.load(js_file)
+            with open(file=FileStorage.__file_path, mode='r', encoding='utf-8') as js_file:
+                for key, val in js.load(js_file).items():
+                    instance = eval(val['__class__'])(**val)
+                    self.__objects[key] = instance
         except FileNotFoundError:
             pass
 

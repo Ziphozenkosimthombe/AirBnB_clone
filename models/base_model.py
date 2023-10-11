@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import models
 from datetime import datetime
 import uuid
@@ -30,7 +31,8 @@ class BaseModel:
         """
         Returns a string representation of the class instance
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
 
     def save(self) -> None:
         """
@@ -38,13 +40,14 @@ class BaseModel:
         updated_at with the current datetime
         """
         self.updated_at = datetime.utcnow()
-        models.storage.save(self)
+        models.storage.save()
 
     def to_dict(self) -> dict:
         """
         Returns a dictionary containing all keys/values of
         __dict__ of the instance
         """
-        dictionary = {key: val.isoformat() if key == 'created_at' or key == 'updated_at' else val for (key, val) in self.__dict__.items()}
-        dictionary['__class__'] = self.__class__.__name__
-        return dictionary
+        new_dict = {k: v.isoformat() if k == 'created_at' or k == 'updated_at'
+                    else v for (k, v) in self.__dict__.items()}
+        new_dict['__class__'] = self.__class__.__name__
+        return new_dict
