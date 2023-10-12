@@ -38,7 +38,7 @@ class BaseModel:
     def __str__(self):
         """__str__ or the string representation.
         with the string format."""
-        return f"[{self.__class__.__name__}] ({self.id}) <{self.__dict__}>"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """saving the update of the
