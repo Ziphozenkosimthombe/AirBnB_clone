@@ -72,26 +72,25 @@ class HBNBCommand(cmd.Cmd):
         """ Deletes an instance based on the class name
         and id (save the change into the JSON file). Ex:
         $ destroy BaseModel 1234-1234-1234.
-    """
-    wordsList = line.split()
-    if wordsList == []:
-        print("** class name missing **")
-        return
-    elif self.classDict.get(wordsList[0]):
-        print("** class doesn't exist ** ")
-        return
-    elif len(wordsList) != 2:
-        print("** instance id missing **")
-        return
-
-    classObjects = storage.all()
-    key = wordsList[0] + '.' wordsList[1]
-    if key in classObjects.keys():
-        classObjects.pop(key)
-        storage.save()
-    else:
-        print("** no instance found **")
-        return
+        """
+        wordsList = line.split()
+        if wordsList == []:
+            print("** class name missing **")
+            return
+        elif self.classDict.get(wordsList[0]):
+            print("** class doesn't exist ** ")
+            return
+        elif len(wordsList) != 2:
+            print("** instance id missing **")
+            return
+        classObjects = storage.all()
+        key = wordsList[0] + '.' wordsList[1]
+        if key in classObjects.keys():
+            classObjects.pop(key)
+            storage.save()
+        else:
+            print("** no instance found **")
+            return
 
 
 if __name__ == '__main__':
