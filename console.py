@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import cmd
-import inspect
 import models
 from models.base_model import BaseModel
 from models.user import User
@@ -101,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
         """
         args_list = line.split()
         if len(args_list) == 2:
-            key = f"{args_list[0]}.{args_list[1]}"
+            key = "{}.{}".format(args_list[0], args_list[1])
             print(key)
             if key in obj:
                 del obj[key]
@@ -159,36 +158,35 @@ class HBNBCommand(cmd.Cmd):
         if len(args_list) > 4:
             del args_list[4:]
 
-        match len(args_list):
-            case 0:
-                print('** class name missing **')
-            case 1:
-                if not (args_list[0] in class_names):
-                    print('** class doesn\'t exist ** ')
+        if len(args_list) == 0:
+            print('** class name missing **')
+        elif len(args_list) == 1:
+            if args_list[0] not in class_names:
+                print('** class doesn\'t exist ** ')
+            else:
+                print('** instance id missing **')
+        elif len(args_list) == 2:
+            if args_list[0] not in class_names:
+                print('** class doesn\'t exist ** ')
+            else:
+                print('** attribute name missing **')
+        elif len(args_list) == 3:
+            if args_list[0] not in class_names:
+                print('** class doesn\'t exist ** ')
+            else:
+                print('** value missing **')
+        elif len(args_list) == 4:
+            if args_list[0] not in class_names:
+                print('** class doesn\'t exist ** ')
+            else:
+                key = "{}.{}".format(args_list[0], args_list[1])
+                if key in obj:
+                    instance = obj[key]
+                    setattr(instance, args_list[2],
+                            args_list[3].lstrip("\"").rstrip('\"'))
+                    instance.save()
                 else:
-                    print('** instance id missing **')
-            case 2:
-                if not (args_list[0] in class_names):
-                    print('** class doesn\'t exist ** ')
-                else:
-                    print('** attribute name missing **')
-            case 3:
-                if not (args_list[0] in class_names):
-                    print('** class doesn\'t exist ** ')
-                else:
-                    print('** value missing **')
-            case 4:
-                if not (args_list[0] in class_names):
-                    print('** class doesn\'t exist ** ')
-                else:
-                    key = f"{args_list[0]}.{args_list[1]}"
-                    if key in obj:
-                        instance = obj[key]
-                        setattr(instance, args_list[2],
-                                args_list[3].lstrip("\"").rstrip('\"'))
-                        instance.save()
-                    else:
-                        print('** no instance found **')
+                    print('** no instance found **')
 
 
 if __name__ == '__main__':
