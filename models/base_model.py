@@ -39,14 +39,14 @@ class BaseModel:
         """__str__ or the string representation.
         with the string format."""
         return f"[{self.__class__.__name__}] ({self.id}) <{self.__dict__}>"
-    
+
     def save(self):
         """saving the update of the
         public instance,
         attribte updated_at."""
         self.updated_at = dt.now()
         models.storage.save()
-    
+
     def to_dict(self):
         """the keys/values of __dict__,
         of the instance will be return as a dictionary."""
