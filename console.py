@@ -78,6 +78,9 @@ class HBNBCommand(cmd.Cmd):
         on the class name and id
             Examle:
                 $ show BaseModel 1234-1234-1234
+            Usage:
+                $ show <class name> <id>
+                $ <class name>.show(<id>)
         """
         args_list = line.split()
         if len(args_list) == 2:
@@ -95,11 +98,13 @@ class HBNBCommand(cmd.Cmd):
             print('** instance id missing **')
 
     def do_destroy(self, line) -> None:
-        """
-        Deletes an instance based on the
+        """ Deletes an instance based on the\
         class name and id (save the change into the JSON file).
-            Example:
-                $ destroy BaseModel 1234-1234-1234
+        Example:
+            $ destroy BaseModel 1234-1234-1234
+        Usage:
+            $ destroy <class name> <id>
+            $ <class name>.destroy(<id>)
         """
         args_list = line.split()
         if len(args_list) == 2:
@@ -144,7 +149,10 @@ class HBNBCommand(cmd.Cmd):
         Only one attribute can  be updated at the time
             Example:
                 $ update BaseModel 1234-1234-1234 email "aibnb@mail.com"
-        Usage: update <class name> <id> <attribute name> "<attribute value>"
+            Usage:
+                $ update <class name> <id> <attribute name> "<attribute value>"
+                $ <class name>.update(<id>, <attr name>, <attr value>)
+                $ <class name>.update(<id>, <dictionary representation>)
         """
         args_list = line.split()
 
@@ -199,7 +207,15 @@ class HBNBCommand(cmd.Cmd):
             print('** class doesn\'t exist **')
 
     def default(self, line: str) -> None:
-        """Handle unknown commands."""
+        """Handle unknown commands.
+            Example:
+                $ User.all()
+            Usage:
+                for show and destroy commands
+                    
+                for update:
+                    
+        """
         class_name, _, fun = line.partition('.')
         command, _, b = fun.partition('(')
 
