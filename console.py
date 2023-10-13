@@ -12,13 +12,13 @@ from models.engine.file_storage import FileStorage
 
 
 class_list = {
-        'BaseModel',
-        'City',
-        'Place',
-        'Review',
-        'State',
-        'User',
-        'Amenity'
+    'BaseModel',
+    'City',
+    'Place',
+    'Review',
+    'State',
+    'User',
+    'Amenity'
 }
 # get all data stored in a file
 models.storage.reload()
@@ -187,6 +187,39 @@ class HBNBCommand(cmd.Cmd):
                     instance.save()
                 else:
                     print('** no instance found **')
+
+    def do_count(self, line) -> None:
+        """Prints number of instances
+            Example:
+                $ count User
+            Usage:
+                $ count <class name>
+        """
+        args = line.split()
+        if len(args) != 0 and args[0] in class_list:
+            list = [str(obj.get(key)) for key in obj.keys()]
+            if len(list) != 0:
+                print(len(list))
+        elif line in class_list:
+            list = [str(obj.get(key)) for key in obj.keys() if line in key]
+            if len(list) != 0:
+                print(len(list))
+        else:
+            print('** class doesn\'t exist **')
+
+    def default(self, line: str) -> None:
+        """Handle unknown commands."""
+        class_name, _, fun = line.partition('.')
+        command, _, b = fun.partition('(')
+
+        if class_name in class_list:
+            if command == 'all':
+                self.do_all(class_name)
+            elif command == 'show':
+                command = "{} {}".format(class_name, b.rstrip(')'))
+                self.do_show(command)
+            else:
+                pass
 
 
 if __name__ == '__main__':
