@@ -216,7 +216,7 @@ class HBNBCommand(cmd.Cmd):
         class_name, _, fun = line.partition('.')
         command, _, param = fun.partition('(')
 
-        if class_name in class_list:
+        if class_name in class_list and param.endswith(')'):
             if command == 'all':
                 self.do_all(class_name)
             elif command == 'count':
@@ -230,8 +230,12 @@ class HBNBCommand(cmd.Cmd):
             elif command == 'update':
                 param = "{} {}".format(class_name,
                                        param.rstrip(')')).split(',')
-                param = "{} {} {}".format(command[0], command[1], command[2])
-                self.do_update(param)
+                param = "{} {} {}".format(param[0], param[1], param[2])
+                if param.endswith('}'):
+                    print(param)
+                    print(param[0], type(param[2]))
+                else:
+                    self.do_update(param)
             else:
                 print('*** Unknown syntax: %s' % line)
         else:
