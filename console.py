@@ -81,11 +81,14 @@ class HBNBCommand(cmd.Cmd):
         """
         args_list = line.split()
         if len(args_list) == 2:
-            key = args_list[0] + '.' + args_list[1]
-            if key in obj:
-                print(obj.get(key))
+            if args_list[0] in class_list:
+                key = args_list[0] + '.' + args_list[1]
+                if key in obj:
+                    print(obj.get(key))
+                else:
+                    print('** no instance found **')
             else:
-                print('** no instance found **')
+                print('** class doesn\'t exist **')
         elif len(args_list) < 1:
             print('** class name missing **')
         else:
@@ -101,12 +104,14 @@ class HBNBCommand(cmd.Cmd):
         args_list = line.split()
         if len(args_list) == 2:
             key = "{}.{}".format(args_list[0], args_list[1])
-            print(key)
-            if key in obj:
-                del obj[key]
-                models.storage.save()
+            if args_list[0] in class_list:
+                if key in obj:
+                    del obj[key]
+                    models.storage.save()
+                else:
+                    print('** no instance found **')
             else:
-                print('** no instance found **')
+                print('** class doesn\'t exist **')
         elif len(args_list) < 1:
             print('** class name missing **')
         else:
@@ -142,18 +147,6 @@ class HBNBCommand(cmd.Cmd):
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
         args_list = line.split()
-        # store all the class names from the storage file in list
-        class_names = []
-        for i in obj.keys():
-            str = ""
-            for j in range(len(i)):
-                if i[j] != '.':
-                    str += i[j]
-                else:
-                    break
-            if not (str in class_names):
-                class_names.append(str)
-            str = ""
 
         if len(args_list) > 4:
             del args_list[4:]
@@ -161,22 +154,22 @@ class HBNBCommand(cmd.Cmd):
         if len(args_list) == 0:
             print('** class name missing **')
         elif len(args_list) == 1:
-            if args_list[0] not in class_names:
+            if args_list[0] not in class_list:
                 print('** class doesn\'t exist ** ')
             else:
                 print('** instance id missing **')
         elif len(args_list) == 2:
-            if args_list[0] not in class_names:
+            if args_list[0] not in class_list:
                 print('** class doesn\'t exist ** ')
             else:
                 print('** attribute name missing **')
         elif len(args_list) == 3:
-            if args_list[0] not in class_names:
+            if args_list[0] not in class_list:
                 print('** class doesn\'t exist ** ')
             else:
                 print('** value missing **')
         elif len(args_list) == 4:
-            if args_list[0] not in class_names:
+            if args_list[0] not in class_list:
                 print('** class doesn\'t exist ** ')
             else:
                 key = "{}.{}".format(args_list[0], args_list[1])
@@ -196,14 +189,12 @@ class HBNBCommand(cmd.Cmd):
                 $ count <class name>
         """
         args = line.split()
-        if len(args) != 0 and args[0] in class_list:
+        if len(line) == 0:
             list = [str(obj.get(key)) for key in obj.keys()]
-            if len(list) != 0:
-                print(len(list))
+            print(len(list))
         elif line in class_list:
             list = [str(obj.get(key)) for key in obj.keys() if line in key]
-            if len(list) != 0:
-                print(len(list))
+            print(len(list))
         else:
             print('** class doesn\'t exist **')
 
@@ -216,10 +207,21 @@ class HBNBCommand(cmd.Cmd):
             if command == 'all':
                 self.do_all(class_name)
             elif command == 'show':
+                print(class_name)
                 command = "{} {}".format(class_name, b.rstrip(')'))
                 self.do_show(command)
+            elif command == 'destroy':
+                command = "{} {}".format(class_name, b.rstrip(')'))
+                self.do_destroy(command)
+            elif command == 'update':
+                command = "{} {}".format(class_name, b.rstrip(')')).split(',')
+                command = "{} {} {}".format(command[0], command[1], command[2])
+                self.do_update(command)
             else:
-                pass
+                print('command Do not exit:\n\
+                      type \'help\' to see all available commands')
+        else:
+            print('** class doesn\'t exist l**')
 
 
 if __name__ == '__main__':
