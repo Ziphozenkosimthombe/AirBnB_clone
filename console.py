@@ -211,33 +211,31 @@ class HBNBCommand(cmd.Cmd):
             Example:
                 $ User.all()
             Usage:
-                for show and destroy commands
-                    
-                for update:
-                    
+                <class name>.update(<id>, <dictionary representation>)
         """
         class_name, _, fun = line.partition('.')
-        command, _, b = fun.partition('(')
+        command, _, param = fun.partition('(')
 
         if class_name in class_list:
             if command == 'all':
                 self.do_all(class_name)
+            elif command == 'count':
+                self.do_count(class_name)
             elif command == 'show':
-                print(class_name)
-                command = "{} {}".format(class_name, b.rstrip(')'))
-                self.do_show(command)
+                param = "{} {}".format(class_name, param.rstrip(')'))
+                self.do_show(param)
             elif command == 'destroy':
-                command = "{} {}".format(class_name, b.rstrip(')'))
-                self.do_destroy(command)
+                param = "{} {}".format(class_name, param.rstrip(')'))
+                self.do_destroy(param)
             elif command == 'update':
-                command = "{} {}".format(class_name, b.rstrip(')')).split(',')
-                command = "{} {} {}".format(command[0], command[1], command[2])
-                self.do_update(command)
+                param = "{} {}".format(class_name,
+                                       param.rstrip(')')).split(',')
+                param = "{} {} {}".format(command[0], command[1], command[2])
+                self.do_update(param)
             else:
-                print('command Do not exit:\n\
-                      type \'help\' to see all available commands')
+                print('*** Unknown syntax: %s' % line)
         else:
-            print('** class doesn\'t exist l**')
+            print('*** Unknown syntax: % s' % line)
 
 
 if __name__ == '__main__':
