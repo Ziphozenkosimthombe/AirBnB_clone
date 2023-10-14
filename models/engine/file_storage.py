@@ -15,7 +15,7 @@ class FileStorage:
 
     __file_path = 'file.json'
     __objects = {}
-    class_list{
+    class_list = {
             'BaseModel': BaseModel,
             'City': City,
             'Place': Place,
@@ -50,9 +50,10 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as file:
                 myDict = json.load(file)
-            for key, value in myDict.items():
-                instance = value['__class__']
-                if value['__class__'] in self.class_list.keys():
-                    self.__objects[key] = self.class_list[value['__class__']](**value)
+                for key, value in myDict.items():
+                    instance = value['__class__']
+                    if value['__class__'] in self.class_list.keys():
+                        self.__objects[key] = self.class_list[
+                                value['__class__']](**value)
         except FileNotFoundError:
             pass
