@@ -33,13 +33,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
     def do_quit(self, line) -> bool:
-        """Quit command to exit the program.
-        """
-        true
+        """Quit command to exit the program."""
+        return True
 
     def do_EOF(self, line) -> bool:
-        """Return True
-        """
+        """Return True"""
+        print('')
         return True
 
     def emptyline(self) -> None:
