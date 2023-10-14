@@ -3,8 +3,6 @@
 import json
 from models.base_model import BaseModel
 from models.user import User
-from models.base_model import BaseModel
-from models.user import User
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
@@ -17,6 +15,15 @@ class FileStorage:
 
     __file_path = 'file.json'
     __objects = {}
+    class_list{
+            'BaseModel': BaseModel,
+            'City': City,
+            'Place': Place,
+            'Review': Review,
+            'State': State,
+            'User': User,
+            'Amenity': Amenity
+            }
 
     def all(self):
         """return all the object classes in the Basemodel"""
@@ -28,9 +35,9 @@ class FileStorage:
 
     def save(self):
         """serialize __objects to the JSON file (path: __file_path)"""
-        myDict = {
-                key: value.to_dict()
-                for key, value in self.__objects.items()}
+        myDict = {}
+        for key, value in self.__objects.items():
+            myDict[key] = value.to_dict()
         with open(self.__file_path, 'w', encoding='utf-8') as file:
             json.dump(myDict, file, indent=4)
 
@@ -42,8 +49,10 @@ class FileStorage:
         """
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as file:
-                for key, value in json.load(file).items():
-                    construtor = eval(value['__class__'])(**value)
-                    self.__objects[key] = construtor
+                myDict = json.load(file)
+            for key, value in myDict.items():
+                instance = value['__class__']
+                if value['__class__'] in self.class_list.keys():
+                    self.__objects[key] = self.class_list[value['__class__']](**value)
         except FileNotFoundError:
             pass
