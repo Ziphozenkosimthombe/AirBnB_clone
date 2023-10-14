@@ -1,4 +1,4 @@
-# Project: 0x00. AirBnB clone - The console
+#Project: 0x00. AirBnB clone - The console
 
 ## Resources
 
@@ -52,5 +52,5 @@
 | 17. Unittests for the Console! | [SOON](./) |
 
 AUTHORS:
-karabo mahlare and 
+karabo mahlare and
 Ziphozenkosi Ncayiyana
