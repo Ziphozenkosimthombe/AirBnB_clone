@@ -8,18 +8,18 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from models.place import Place
-from models.engine.file_storage import FileStorage
+# from models.engine.file_storage import FileStorage
 
 
 class_list = {
-    'BaseModel',
-    'City',
-    'Place',
-    'Review',
-    'State',
-    'User',
-    'Amenity'
-}
+            'BaseModel': BaseModel,
+            'City': City,
+            'Place': Place,
+            'Review': Review,
+            'State': State,
+            'User': User,
+            'Amenity': Amenity
+            }
 # get all data stored in a file
 models.storage.reload()
 # get the dict of contents of the file invoked above
@@ -196,7 +196,7 @@ class HBNBCommand(cmd.Cmd):
             Usage:
                 $ count <class name>
         """
-        args = line.split()
+        # args = line.split()
         if len(line) == 0:
             list = [str(obj.get(key)) for key in obj.keys()]
             print(len(list))

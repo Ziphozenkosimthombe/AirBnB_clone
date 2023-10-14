@@ -51,7 +51,7 @@ class FileStorage:
             with open(self.__file_path, 'r', encoding='utf-8') as file:
                 myDict = json.load(file)
                 for key, value in myDict.items():
-                    instance = value['__class__']
+                    # instance = value['__class__']
                     if value['__class__'] in self.class_list.keys():
                         self.__objects[key] = self.class_list[
                                 value['__class__']](**value)
