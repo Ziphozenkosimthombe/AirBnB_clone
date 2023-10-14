@@ -190,7 +190,6 @@ class HBNBCommand(cmd.Cmd):
         Usage:
             $ count <class name>
         """
-        # args = line.split()
         if len(line) == 0:
             list = [str(obj.get(key)) for key in obj.keys()]
             print(len(list))
