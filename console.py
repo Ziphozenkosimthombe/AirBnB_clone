@@ -32,12 +32,10 @@ class HBNBCommand(cmd.Cmd):
     # override the default prompt
     prompt = '(hbnb) '
 
-    def do_quit(self, line) -> None:
-        """Quit command to exit the program
-        
+    def do_quit(self, line) -> bool:
+        """Quit command to exit the program.
         """
-        print()
-        exit(1)
+        true
 
     def do_EOF(self, line) -> bool:
         """Return True
