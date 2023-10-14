@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''Amenities Module'''
 from models.base_model import BaseModel
 
 

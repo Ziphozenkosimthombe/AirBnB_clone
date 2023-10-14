@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''interprete commands'''
 import cmd
 import models
 from models.base_model import BaseModel
@@ -38,30 +39,24 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, line) -> bool:
-        """Return True"""
+        """Quits the console
+        Returns True
+        """
         print('')
         return True
 
     def emptyline(self) -> None:
-        """
-        Overrides emptyline in the super class so that
+        """Overrides emptyline in the super class so that
         an empty line + ENTER shouldn’t execute anything
         """
         pass
 
     def do_create(self, line) -> None:
-        """
-        Creates a new instance of BaseModel,
+        """Creates a new instance of BaseModel,
         saves it (to the JSON file) and prints the id
             Example:
                 $ create BaseModel
         """
-        # get all the classes defined in the base_model module
-        # classes = [cls for name, cls in inspect.getmembers(
-        #     models.line, inspect.isclass)]
-        # # get the names of all the classes
-        # class_names = [cls.__name__ for cls in classes]
-
         if line is not None and len(line) != 0:
             if line in class_list:
                 instance = eval(line + '()')
@@ -73,14 +68,15 @@ class HBNBCommand(cmd.Cmd):
             print('** class name missing **')
 
     def do_show(self, line):
-        """
-        prints the string representation of an instance based
+        """prints the string representation of an instance based
         on the class name and id
-            Examle:
-                $ show BaseModel 1234-1234-1234
-            Usage:
-                $ show <class name> <id>
-                $ <class name>.show(<id>)
+        Arg:
+            line: the argument provided alongside the command
+        Examle:
+            $ show BaseModel 1234-1234-1234
+        Usage:
+            $ show <class name> <id>
+            $ <class name>.show(<id>)
         """
         args_list = line.split()
         if len(args_list) == 2:
@@ -98,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
             print('** instance id missing **')
 
     def do_destroy(self, line) -> None:
-        """ Deletes an instance based on the\
+        """Deletes an instance based on the\
         class name and id (save the change into the JSON file).
         Example:
             $ destroy BaseModel 1234-1234-1234
@@ -123,12 +119,11 @@ class HBNBCommand(cmd.Cmd):
             print('** instance id missing **')
 
     def do_all(self, line) -> None:
-        """
-        Prints all string representation of
+        """Prints all string representation of
         all instances based or not on the class name
-            Example:
-                $ all BaseModel
-                $ all
+        Example:
+            $ all BaseModel
+            $ all
         """
 
         if len(line) == 0:
@@ -143,16 +138,15 @@ class HBNBCommand(cmd.Cmd):
             print('** class doesn\'t exist **')
 
     def do_update(self, line) -> None:
-        """
-        Updates an instance based on the class name and id by adding or \
+        """Updates an instance based on the class name and id by adding or \
             updating attribute (save the change into the JSON file).
         Only one attribute can  be updated at the time
-            Example:
-                $ update BaseModel 1234-1234-1234 email "aibnb@mail.com"
-            Usage:
-                $ update <class name> <id> <attribute name> "<attribute value>"
-                $ <class name>.update(<id>, <attr name>, <attr value>)
-                $ <class name>.update(<id>, <dictionary representation>)
+        Example:
+            $ update BaseModel 1234-1234-1234 email "aibnb@mail.com"
+        Usage:
+            $ update <class name> <id> <attribute name> "<attribute value>"
+            $ <class name>.update(<id>, <attr name>, <attr value>)
+            $ <class name>.update(<id>, <dictionary representation>)
         """
         args_list = line.split()
 
@@ -191,10 +185,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, line) -> None:
         """Prints number of instances
-            Example:
-                $ count User
-            Usage:
-                $ count <class name>
+        Example:
+            $ count User
+        Usage:
+            $ count <class name>
         """
         # args = line.split()
         if len(line) == 0:
@@ -208,10 +202,10 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line: str) -> None:
         """Handle unknown commands.
-            Example:
-                $ User.all()
-            Usage:
-                <class name>.update(<id>, <dictionary representation>)
+        Example:
+            $ User.all()
+        Usage:
+            <class name>.update(<id>, <dictionary representation>)
         """
         class_name, _, fun = line.partition('.')
         command, _, param = fun.partition('(')

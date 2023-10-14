@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+'''Place Module'''
 from models.base_model import BaseModel
 
 
