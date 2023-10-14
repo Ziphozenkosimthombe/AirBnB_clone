@@ -26,9 +26,11 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != '__class__':
                     if key == 'updated_at':
-                        self.updated_at = dt.fromisoformat(value)
+                        self.updated_at = (dt.strptime(kwargs['updated_at'],
+                                                       "%Y-%m-%dT%H:%M:%S.%f"))
                     elif key == 'created_at':
-                        self.created_at = dt.fromisoformat(value)
+                        self.created_at = (dt.strptime(kwargs['created_at'],
+                                                       "%Y-%m-%dT%H:%M:%S.%f"))
                     else:
                         """Sets the named attribute on the given object
                         to the specified value.
@@ -38,7 +40,7 @@ class BaseModel:
     def __str__(self):
         """__str__ or the string representation.
         with the string format."""
-        return "[{}] ({}) <{}>".format(self.__class__.__name__,
+        return "[{}] ({}) {}".format(self.__class__.__name__,
                                        self.id, self.__dict__)
 
     def save(self):
@@ -58,6 +60,6 @@ class BaseModel:
         """
         dictClass = self.__dict__.copy()
         dictClass['__class__'] = self.__class__.__name__
-        dictClass['created_at'] = self.created_at.isoformat()
-        dictClass['updated_at'] = self.updated_at.isoformat()
+        dictClass['created_at'] = dt.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+        dictClass['updated_at'] = dt.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
         return dictClass
