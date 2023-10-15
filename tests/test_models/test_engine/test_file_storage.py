@@ -77,3 +77,7 @@ class TestConstrutor(unittest.TestCase):
         self.assertIn(key, file_storage._FileStorage__objects)
         self.assertNotEqual(file_storage._FileStorage__objects[key].to_dict(),
                          obj.to_dict())
+
+
+if __name__ == "__main__":
+    unittest.main()
