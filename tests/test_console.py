@@ -4,12 +4,14 @@ import unittest
 from console import HBNBCommand
 from unittest.mock import patch
 from io import StringIO
+from models import storage
 import sys
 import os
 
 
 class CreateTests(unittest.TestCase):
     '''Create Tests'''
+
     def test_no_input(self):
         '''test when only create is parsed on the console'''
         output = '** class name missing **'
@@ -17,24 +19,47 @@ class CreateTests(unittest.TestCase):
             HBNBCommand().onecmd('create')
             mock_print.assert_called_once_with(output)
 
-    def test_invalid_cmd(self):
+    def test_invalid_class(self):
         '''parse invalid command'''
         output = '** class doesn\'t exist **'
         with patch('builtins.print') as mock_print:
-            HBNBCommand().onecmd('create user')
+            HBNBCommand().onecmd('create city')
+            mock_print.assert_called_once_with(output)
+
+    def test_valid_input(self):
+        '''test when valid inputs are parsed to the console
+        we'll use type of output to test
+        '''
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd('create User')
+            output = mock_print.call_args[0][0]
+            self.assertIsInstance(output, str)
+            key = "User.{}".format(output)
+            self.assertIn(key, storage.all().keys())
+
+
+class AllTests(unittest.TestCase):
+    """Test cass for all command"""
+
+    def test_invalid_class(self):
+        '''parse invalid command'''
+        output = '** class doesn\'t exist **'
+
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd('all user')
+            mock_print.assert_called_once_with(output)
+
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd('user.all()')
             mock_print.assert_called_once_with(output)
 
     def test_valid_input(self):
         '''test when valid inputs are parsed to the console
         we'll use type of output to test'''
         with patch('builtins.print') as mock_print:
-            HBNBCommand().onecmd('create User')
+            HBNBCommand().onecmd('all User')
             output = mock_print.call_args[0][0]
-            self.assertIsInstance(output, str)
-
-
-class AllTests(unittest.TestCase):
-    pass
+            self.assertIsInstance(output, list)
 
 
 class ShowTests(unittest.TestCase):
