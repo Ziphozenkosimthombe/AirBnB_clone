@@ -7,11 +7,15 @@ from io import StringIO
 import sys
 import os
 
+
 class CreateTests(unittest.TestCase):
     '''Create Tests'''
-    
+    pass
+
+
 class AllTests(unittest.TestCase):
     pass
+
 
 class ShowTests(unittest.TestCase):
     pass
@@ -23,6 +27,7 @@ class DestroyTests(unittest.TestCase):
 
 class UpdateTests(unittest.TestCase):
     pass
+
 
 class QuitTest(unittest.TestCase):
     """Unittests for testing exiting from the HBNB command interpreter."""
