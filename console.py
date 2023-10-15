@@ -222,12 +222,21 @@ class HBNBCommand(cmd.Cmd):
                 self.do_destroy(param)
             elif command == 'update':
                 param = "{} {}".format(class_name,
-                                       param.rstrip(')')).split(',')
-                param = "{} {} {}".format(param[0], param[1], param[2])
+                                       param.rstrip(')'))
+                param_list = param.split(',')
                 if param.endswith('}'):
-                    print(param)
-                    print(param[0], type(param[2]))
+                    # Define a regex pattern to match
+                    # dictionary-like substrings
+                    pattern = r'{[^{}]*}'
+                    # Use re.findall() to find all occurrences of the pattern
+                    matches = re.findall(pattern, param)
+                    dict = eval(matches[0])
+                    for key, val in dict.items():
+                        arg = "{} {} {}".format(param_list[0], key, val)
+                        self.do_update(arg)
                 else:
+                    param = "{} {} {}".format(param_list[0],
+                                              param_list[1], param_list[2])
                     self.do_update(param)
             else:
                 print('*** Unknown syntax: %s' % line)
