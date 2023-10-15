@@ -176,3 +176,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(placeDict["amenity_ids"],
                          self.place.amenity_ids
                          )
+
+
+if __name__ == "__main__":
+    unittest.main()
