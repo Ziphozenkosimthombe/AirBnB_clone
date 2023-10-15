@@ -82,3 +82,7 @@ class TestAmenity(unittest.TestCase):
                          #self.amenity.name)
         self.assertEqual(kwargsObjects["id"],
                          self.amenity.id)
+
+
+if __name__ == "__main__":
+    unittest.main()
