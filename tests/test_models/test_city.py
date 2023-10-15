@@ -77,3 +77,7 @@ class TestCity(unittest.TestCase):
         n = self.city.__class__.__name__
         exStr = f"[{n}] ({self.city.id}) {self.city.__dict__}"
         self.assertEqual(self.city.__str__(), exStr)
+
+
+if __name__ == "__main__":
+    unittest.main()
