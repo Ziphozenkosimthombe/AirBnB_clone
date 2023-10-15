@@ -186,41 +186,41 @@ class UpdateTests(unittest.TestCase):
             HBNBCommand().onecmd(key)
             mock_print.assert_called_once_with(output)
 
-    # def test_missing_id(self):
-    #     """id missing"""
-    #     output = '** attribute name missing **'
-    #     with patch('builtins.print') as mock_print:
-    #         key = 'update City'
-    #         HBNBCommand().onecmd(key)
-    #         mock_print.assert_called_once_with(output)
-    #     with patch('builtins.print') as mock_print:
-    #         param = 'City.update({})'.format(key)
-    #         HBNBCommand().onecmd(param)
-    #         mock_print.assert_called_once_with(output)
+    def test_missing_id(self):
+        """id missing"""
+        output = '** instance id missing **'
+        with patch('builtins.print') as mock_print:
+            key = 'update City'
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+        with patch('builtins.print') as mock_print:
+            param = 'City.update(,,)'
+            HBNBCommand().onecmd(param)
+            mock_print.assert_called_once_with(output)
 
     def test_missing_attr_name(self):
         "test when attr name is missing"
-        output = '** no instance found **'
-        key = 'update City {} Name \"John Doe\"'.format('654646')
+        output = '** attribute name missing **'
+        key = 'update City 46546'
         with patch('builtins.print') as mock_print:
             HBNBCommand().onecmd(key)
             mock_print.assert_called_once_with(output)
         with patch('builtins.print') as mock_print:
-            key = 'City.update({}, {}, {})'.format(
-                '654', 'Name', '\"John Doe\"')
+            key = 'City.update({},,)'.format(
+                '654')
             HBNBCommand().onecmd(key)
             mock_print.assert_called_once_with(output)
 
     def test_missing_attr_value(self):
         "test when invalid id is parsed"
-        output = '** no instance found **'
-        key = 'update City {} Name \"John Doe\"'.format('654646')
+        output = '** value missing **'
+        key = 'update City 645646 Name'
         with patch('builtins.print') as mock_print:
             HBNBCommand().onecmd(key)
             mock_print.assert_called_once_with(output)
         with patch('builtins.print') as mock_print:
-            key = 'City.update({}, {}, {})'.format(
-                '654', 'Name', '\"John Doe\"')
+            key = 'City.update({}, {},)'.format(
+                '654', 'Name')
             HBNBCommand().onecmd(key)
             mock_print.assert_called_once_with(output)
 
