@@ -102,16 +102,127 @@ class ShowTests(unittest.TestCase):
         with patch('builtins.print') as mock_print:
             HBNBCommand().onecmd(' show City')
             mock_print.assert_called_once_with(output)
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd('City.show()')
+            mock_print.assert_called_once_with(output)
 
 
 class DestroyTests(unittest.TestCase):
-    pass
+    """destroy tests"""
+
+    def test_invalid_class(self):
+        '''parse invalid command'''
+        output = '** class doesn\'t exist **'
+        with patch('builtins.print') as mock_print:
+            with patch('builtins.print') as mock:
+                HBNBCommand().onecmd('create City')
+                id = mock.call_args[0][0]
+            HBNBCommand().onecmd('destroy city ' + id)
+            mock_print.assert_called_once_with(output)
+
+        with patch('builtins.print') as mock_print:
+            with patch('builtins.print') as mock:
+                HBNBCommand().onecmd('create City')
+                id = mock.call_args[0][0]
+            key = 'city.destroy({})'.format(id)
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+
+    def test_invalid_id(self):
+        "test when invalid id is parsed"
+        output = '** no instance found **'
+        with patch('builtins.print') as mock_print:
+            id = '1234-567-8910'
+            HBNBCommand().onecmd('destroy City ' + id)
+            mock_print.assert_called_once_with(output)
+
+        with patch('builtins.print') as mock_print:
+            key = 'City.destroy({})'.format(id)
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+
+    def test_missing_id(self):
+        """id missing"""
+        output = '** instance id missing **'
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd(' destroy City')
+            mock_print.assert_called_once_with(output)
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd('City.destroy()')
+            mock_print.assert_called_once_with(output)
 
 
 class UpdateTests(unittest.TestCase):
     '''Update test cases'''
-    # def test_
-    pass
+
+    def test_invalid_class(self):
+        '''parse invalid command'''
+        output = '** class doesn\'t exist **'
+        with patch('builtins.print') as mock_print:
+            with patch('builtins.print') as mock:
+                HBNBCommand().onecmd('create City')
+                id = mock.call_args[0][0]
+            HBNBCommand().onecmd('destroy city ' + id)
+            mock_print.assert_called_once_with(output)
+
+        with patch('builtins.print') as mock_print:
+            with patch('builtins.print') as mock:
+                HBNBCommand().onecmd('create City')
+                id = mock.call_args[0][0]
+            key = 'city.destroy({})'.format(id)
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+
+    def test_invalid_id(self):
+        "test when invalid id is parsed"
+        output = '** no instance found **'
+        key = 'update City {} Name \"John Doe\"'.format('654646')
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+        with patch('builtins.print') as mock_print:
+            key = 'City.update({}, {}, {})'.format(
+                '654', 'Name', '\"John Doe\"')
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+
+    # def test_missing_id(self):
+    #     """id missing"""
+    #     output = '** attribute name missing **'
+    #     with patch('builtins.print') as mock_print:
+    #         key = 'update City'
+    #         HBNBCommand().onecmd(key)
+    #         mock_print.assert_called_once_with(output)
+    #     with patch('builtins.print') as mock_print:
+    #         param = 'City.update({})'.format(key)
+    #         HBNBCommand().onecmd(param)
+    #         mock_print.assert_called_once_with(output)
+
+    def test_missing_attr_name(self):
+        "test when attr name is missing"
+        output = '** no instance found **'
+        key = 'update City {} Name \"John Doe\"'.format('654646')
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+        with patch('builtins.print') as mock_print:
+            key = 'City.update({}, {}, {})'.format(
+                '654', 'Name', '\"John Doe\"')
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+
+    def test_missing_attr_value(self):
+        "test when invalid id is parsed"
+        output = '** no instance found **'
+        key = 'update City {} Name \"John Doe\"'.format('654646')
+        with patch('builtins.print') as mock_print:
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
+        with patch('builtins.print') as mock_print:
+            key = 'City.update({}, {}, {})'.format(
+                '654', 'Name', '\"John Doe\"')
+            HBNBCommand().onecmd(key)
+            mock_print.assert_called_once_with(output)
 
 
 class QuitTest(unittest.TestCase):
