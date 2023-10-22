@@ -5,7 +5,6 @@
 }
 article h2{
 	width: 390px;
-        display: flex;
 	padding: 20px;
 	margin: 20px;
 	border: 1px solid  #FF5A5F;
@@ -14,5 +13,9 @@ article h2{
 	text-align: center;
 }
 article{
+	display: inline-flex;
+}
+.last{
 	display: flex;
+	justify-content: center;
 }
