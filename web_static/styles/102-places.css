@@ -1,0 +1,161 @@
+/* places */
+.place > h1{
+	font-size: 30px;
+	text-align: left;
+}
+
+article h2{
+	font-size: 30px;
+    text-align: center;
+}
+@media screen and (min-width:481px){
+    article{
+        display: inline-block;
+    }
+    .last{
+        margin-left: 30%;
+    }
+}
+article{
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid  #FF5A5F;
+    border-radius: 4px;
+
+}
+.price_by_night{
+	border-radius: 4px;
+	display: flex;
+    	justify-content: space-around;
+}
+
+.price_by_night h4{
+	position: relative;
+	bottom: 20px;
+    	padding: 5px;
+    	color:  #FF5A5F;
+    	line-height: 4rem;
+    	border: 1px solid #FF5A5F;
+    	border-radius: 50px;
+    	min-width: 60px;
+    	height: 60px;
+    	font-size: 30px;
+    	text-align: center;
+}
+
+.information{
+	height: 80px;
+    	border-bottom: 1px solid #DDDDDD;
+    	border-top: 1px solid #DDDDDD;
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-around;
+}
+
+.max_guest,
+.number_rooms,
+.number_bathrooms{
+	margin-top: 9px;
+    	margin-left: 20px;
+}
+
+.max_guest{
+	background-image: url("../images/guest.png");
+    	height: 80px;
+    	background-repeat: no-repeat;
+}
+
+.number_rooms{
+	background-image: url("../images/bad_rooms.png");
+    	height: 80px;
+    	background-repeat: no-repeat;
+}
+
+.number_bathrooms{
+	background-image: url("../images/bathroom.png");
+    	height: 80px;
+    	background-repeat: no-repeat;
+}
+
+.ul{
+	position: relative;
+    	top: 45px;
+    	right: 43px;
+    	font-size: 1rem;
+}
+.description{
+	font-size: 1.5rem;
+}
+strong{
+	font-size: 2rem;
+}
+
+.user h3 {
+	font-size: 1.3rem;
+    	font-style: italic;
+ }
+
+article .amenities{
+	 margin-top: 40px;
+	 width: 100%;
+}
+
+article .amenities h2,
+.reviews h2{
+	font-size: 16px;
+    	border-bottom: 1px solid #DDDDDD;
+    	padding-right: 80%;
+}
+
+article .amenities  .tv{
+	background-image: url("../images/TV.png");
+   	height: 50px;
+   	background-repeat: no-repeat;
+   
+}
+
+article .amenities .tv h4{
+	padding-top: 5%;
+    	padding-left: 10%;
+}
+
+article .amenities .wifi{
+	background-image: url("../images/WI-FI.png");
+    	height: 50px;
+    	background-repeat: no-repeat;
+}
+
+article .amenities .wifi h4{
+	padding-left: 10%;
+        padding-top: 5%;
+}
+
+article .amenities .pets-friendly{
+	background-image: url("../images/pet-friend.png");
+	height:80px;
+	background-repeat: no-repeat;
+}
+
+article .amenities .pets-friendly h4{
+	padding-left: 10%;
+        padding-top: 5%;
+}
+
+.reviews{
+	margin-top: 40px;
+	width: 100%;
+}
+
+.ul-review{
+	position: relative;
+	right:35px;
+}
+
+.ul-review h3{
+	font-size: 14px;
+}
+
+.ul-review p{
+	font-size: 12px;
+}
